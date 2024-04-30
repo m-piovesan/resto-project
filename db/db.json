@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "password123"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "password": "letmein"
+    },
+    {
+      "id": "3",
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "password": "qwerty"
+    },
+    {
+      "id": "4",
+      "name": "Bob Brown",
+      "email": "bob@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "5",
+      "name": "Emily Davis",
+      "email": "emily@example.com",
+      "password": "secret"
+    },
+    {
+      "id": "60f2",
+      "name": "Matheus",
+      "email": "piove@email.com",
+      "password": "senha"
+    },
+    {
+      "id": "2973",
+      "name": "Haaland",
+      "email": "email@dohaaland.com",
+      "password": "senha"
+    },
+    {
+      "id": "fdc6",
+      "name": "Guigo",
+      "email": "gui@email.com",
+      "password": "senha"
+    },
+    {
+      "id": "7248",
+      "name": "mariana",
+      "email": "mari@passos.com",
+      "password": "senha"
+    },
+    {
+      "id": "dc43",
+      "name": "messi",
+      "email": "leo@messi.com",
+      "password": "voltavida"
+    },
+    {
+      "id": "0124",
+      "name": "ney",
+      "email": "nj@email.com",
+      "password": "teste"
+    }
+  ]
+}
