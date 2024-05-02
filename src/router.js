@@ -1,19 +1,29 @@
 import HomePage from "./components/HomePage.vue";
 import SignUp from "./components/SignUp.vue";
+import LoginPage from "./components/LoginPage.vue";
+import StandardLayout from "./layouts/StandardLayout.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
     {
-        name: "home",
-        path: "/",
+        path: "/home",
         component: HomePage,
     },
     {
-        name: "signup",
-        path: "/signup",
-        component: SignUp,
-    },
+        path: "",
+        component: StandardLayout,
+        children : [
+            {
+                path: "/signup",
+                component: SignUp,
+            },
+            {
+                path: "/login",
+                component: LoginPage,
+            },
+        ]
+    }
 ];
 
 const router = createRouter({

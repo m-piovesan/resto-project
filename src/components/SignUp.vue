@@ -1,18 +1,18 @@
 <template>
-    <div class="container">
-        <img src="../assets/rest-logo.png">
-        <h1>Sign Up</h1>
+    <h1>Sign Up</h1>
 
-        <input type="text" v-model="name" placeholder="Type your name...">
-        <input type="text" v-model="email" placeholder="Type your email...">
-        <input type="password" v-model="password" placeholder="Type your password...">
+    <input type="text" v-model="name" placeholder="Type your name...">
+    <input type="text" v-model="email" placeholder="Type your email...">
+    <input type="password" @keyup.enter="handleSignUp" v-model="password" placeholder="Type your password...">
 
-        <button @click="handleSignUp" type="button" class="btn btn-primary">Sign Up</button>
-    </div>
+    <p>Already have an account? 
+        <router-link to="/login">Login here</router-link>
+    </p>
+
+    <button @click="handleSignUp" type="button" class="btn btn-primary">Sign Up</button>
 </template>
 
 <script>
-    import '../styles/SignUp.scss'
     import axios from 'axios'
 
     export default {
@@ -33,13 +33,18 @@
                 });
 
                 if (result.status === 201) {
-                    this.$router.push('/');
+                    this.$router.push('/home');
                     localStorage.setItem('user-info', JSON.stringify(result.data));
 
                     this.name = '';
                     this.email = '';
                     this.password = '';
                 }
+            }
+        },
+        mounted() {
+            if (localStorage.getItem('user-info')) {
+                this.$router.push('/home');
             }
         }
     }

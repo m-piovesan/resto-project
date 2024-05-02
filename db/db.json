@@ -65,6 +65,18 @@
       "name": "ney",
       "email": "nj@email.com",
       "password": "teste"
+    },
+    {
+      "id": "fb29",
+      "name": "nome",
+      "email": "email@email.com",
+      "password": "123"
+    },
+    {
+      "id": "507c",
+      "name": "kanye",
+      "email": "ye@email.com",
+      "password": "senha"
     }
   ]
 }
