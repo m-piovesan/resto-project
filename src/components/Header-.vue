@@ -2,19 +2,20 @@
     <div class="container">
         <header>
             <img src="../assets/rest-logo.png">
+            
             <nav>
                 <ul>
                     <li>
-                        <a href="#">Home</a>
+                        <router-link to="/">Home</router-link>
                     </li>
                     <li>
-                        <a href="#">Add restaurant</a>
+                        <router-link to="add">Add restaurant</router-link>
                     </li>
                     <li>
-                        <a href="#">Update restaurant</a>
+                        <router-link to="update">Update restaurant</router-link>
                     </li>
                     <li>
-                        <a href="#" @click="handleLogout">Logout</a>
+                        <router-link to="/" @click="handleLogout">Logout</router-link>
                     </li>
                 </ul>
             </nav>

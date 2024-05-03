@@ -1,0 +1,44 @@
+$table-background: #f2f2f2;
+$table-header-background: #dcdcdc;
+$table-header-color: #333;
+$table-row-hover-color: #ddd;
+
+.restaurants {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    padding-bottom: 50px;
+
+    table {
+        width: 60vw;
+        border-collapse: collapse;
+    }
+      
+    thead {
+        background-color: $table-header-background;
+    }
+      
+    th {
+        padding: 8px;
+        text-align: left;
+        font-weight: bold;
+        color: $table-header-color;
+    }
+      
+    tbody tr {
+        &:hover {
+            background-color: $table-row-hover-color;
+        }
+    }
+      
+    td {
+        padding: 8px;
+    }
+      
+    // Alternar cores de linhas
+    tbody tr:nth-child(even) {
+        background-color: $table-background;
+    }
+}

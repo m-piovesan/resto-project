@@ -1,18 +1,16 @@
 <template>
     <myHeader />
     <div class="home-content">
-        <img src="../assets/rest-logo.png">
-        <h1 v-if="user">Welcome, {{ user.name }}</h1>
-        <h1 v-else>Home Page</h1>
+        <router-view />
     </div>
 </template>
 
 <script>
-    import myHeader from './Header-.vue';
-    import '../styles/HomePage.scss'
+    import myHeader from '../components/Header-.vue';
+    import './HomePage.scss'
 
     export default {
-        name: 'HomePage',
+        name: 'HomeLayout',
         components: {
             myHeader,
         },
