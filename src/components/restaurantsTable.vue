@@ -1,5 +1,18 @@
+<script setup>
+    import {
+        DialogClose,
+        DialogContent,
+        DialogDescription,
+        DialogOverlay,
+        DialogPortal,
+        DialogRoot,
+        DialogTitle,
+        DialogTrigger,
+    } from 'radix-vue'
+</script>
+
 <template>
-    <div>
+    <DialogRoot>
         <table>
             <thead>
                 <tr>
@@ -15,30 +28,54 @@
                     <td>{{ restaurant.name }}</td>
                     <td>{{ restaurant.contact }}</td>
                     <td>{{ restaurant.address }}</td>
-                    <td class="d-flex justify-content-center gap-4" v-if="isUpdateRoute">
-                        <span @click="editRestaurant" class="pi pi-pencil"></span>
-                        <span class="pi pi-trash"></span>
+                    <td class="d-flex justify-content-center gap-4 align-items-center" v-if="isUpdateRoute">
+                        <DialogTrigger class="pi pi-pencil" style="color: green" />
+                        <span class="pi pi-trash" style="color: darkred"></span>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <!-- Formulário de edição (será exibido ao clicar em "Editar") -->
-        <div v-if="showEditForm">
-            <h2>Edit Restaurant</h2>
-            <input type="text" v-model="editedRestaurant.name" placeholder="Restaurant's name...">
-            <input type="text" v-model="editedRestaurant.contact" placeholder="Restaurant's contact...">
-            <input type="text" v-model="editedRestaurant.address" placeholder="Restaurant's address...">
-            <button @click="saveRestaurant">Save</button>
-            <button @click="cancelEdit">Cancel</button>
-        </div>
-    </div>
+        <DialogPortal>
+            <DialogOverlay class="inset-0 fixed bg-black/60" />
+            
+            <DialogContent class="DialogContent">
+                <DialogTitle class="text-success m-0 fw-medium fs-3 mb-1">Edit Restaurant</DialogTitle>
+                <DialogDescription class="DialogDescription">
+                    Edit the information about the restaurant. Click save when you're done.
+                </DialogDescription>
+                
+                <form @submit.prevent="saveRestaurant">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input v-model="editedRestaurant.name" type="text" id="name" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact">Contact:</label>
+                        <input v-model="editedRestaurant.contact" type="text" id="contact" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input v-model="editedRestaurant.address" type="text" id="address" class="form-control" required>
+                    </div>
+
+                    <div class="d-flex justify-content-between gap-3">
+                        <button type="submit" class="btn btn-success" @click="handleSaveRestaurant">Save</button>
+                        <DialogClose @click="cancelEdit" class="btn btn-danger">Cancel</DialogClose>
+                    </div>
+                </form>
+            </DialogContent>
+        </DialogPortal>
+    </DialogRoot>
 </template>
 
 <script>
     import axios from 'axios';
+    import { useToast } from 'vue-toast-notification';
     import '../styles/restaurantsTable.scss';
-
+    
     export default {
         name: 'RestaurantsTable',
         data() {
@@ -50,7 +87,6 @@
                     contact: '',
                     address: ''
                 },
-                showEditForm: false
             }
         },
         computed: {
@@ -67,44 +103,24 @@
             }
         },
         methods: {
-            editRestaurant(restaurant) {
-                // Preencher o formulário de edição com os valores do restaurante selecionado
-                this.editedRestaurant.id = restaurant.id;
-                this.editedRestaurant.name = restaurant.name;
-                this.editedRestaurant.contact = restaurant.contact;
-                this.editedRestaurant.address = restaurant.address;
-                
-                // Mostrar o formulário de edição
-                this.showEditForm = true;
-            },
-            async saveRestaurant() {
+            async handleSaveRestaurant() {
                 try {
-                    // Enviar uma solicitação PUT para atualizar o restaurante
-                    await axios.put(`http://localhost:3000/restaurants/${this.editedRestaurant.id}`, {
+                    let result = await axios.put(`http://localhost:3000/restaurants/${this.editedRestaurant.id}`, {
                         name: this.editedRestaurant.name,
                         contact: this.editedRestaurant.contact,
                         address: this.editedRestaurant.address
                     });
-                    
-                    // Atualizar a lista de restaurantes
-                    let response = await axios.get('http://localhost:3000/restaurants');
-                    this.restaurants = response.data;
-                    
-                    // Ocultar o formulário de edição
-                    this.showEditForm = false;
+
+                    if (result.status === 200) {
+                        useToast().success('Restaurant updated!', { duration: 3000, position: 'top-right' });
+                    }
                 } catch (error) {
                     console.error(error);
+                    useToast().error('Error updating restaurant!', { duration: 3000, position: 'top-right' });
                 }
             },
             cancelEdit() {
-                // Limpar o objeto de restaurante editado e ocultar o formulário de edição
-                this.editedRestaurant = {
-                    id: null,
-                    name: '',
-                    contact: '',
-                    address: ''
-                };
-                this.showEditForm = false;
+                console.log('cancelEdit');
             }
         }
     }
