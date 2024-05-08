@@ -28,9 +28,9 @@
                     <td>{{ restaurant.name }}</td>
                     <td>{{ restaurant.contact }}</td>
                     <td>{{ restaurant.address }}</td>
-                    <td class="d-flex justify-content-center gap-4 align-items-center" v-if="isUpdateRoute">
+                    <td v-if="isUpdateRoute" class="d-flex justify-content-center gap-4 align-items-center">
                         <DialogTrigger class="pi pi-pencil" style="color: green" />
-                        <span class="pi pi-trash" style="color: darkred"></span>
+                        <span class="pi pi-trash"  @click="handleDeleteRestaurant(restaurant.id)" style="color: darkred"></span>
                     </td>
                 </tr>
             </tbody>
@@ -63,7 +63,7 @@
 
                     <div class="d-flex justify-content-between gap-3">
                         <button type="submit" class="btn btn-success" @click="handleSaveRestaurant">Save</button>
-                        <DialogClose @click="cancelEdit" class="btn btn-danger">Cancel</DialogClose>
+                        <DialogClose class="btn btn-danger">Cancel</DialogClose>
                     </div>
                 </form>
             </DialogContent>
@@ -119,9 +119,19 @@
                     useToast().error('Error updating restaurant!', { duration: 3000, position: 'top-right' });
                 }
             },
-            cancelEdit() {
-                console.log('cancelEdit');
-            }
+            async handleDeleteRestaurant(restaurantId) {
+                try {
+                    let result = await axios.delete(`http://localhost:3000/restaurants/${restaurantId}`);
+
+                    if (result.status === 200) {
+                        useToast().success('Restaurant deleted!', { duration: 3000, position: 'top-right' });
+                        this.restaurants = this.restaurants.filter(restaurant => restaurant.id !== restaurantId);
+                    }
+                } catch (error) {
+                    console.error(error);
+                    useToast().error('Error deleting restaurant!', { duration: 3000, position: 'top-right' });
+                }
+            },
         }
     }
 </script>
