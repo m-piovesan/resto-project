@@ -32,10 +32,15 @@ header {
             font-size: 1rem;
             font-weight: 500;
             transition: color 0.3s;
-
+            
+            
             &:hover {
                 color: #f00;
             }
         }
+    }
+    
+    .active {
+        color: #f00;
     }
 }

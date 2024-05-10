@@ -34,7 +34,8 @@ $table-row-hover-color: #ddd;
     }
       
     td {
-        padding: 8px;
+        border-bottom: 1px solid #ccc;
+        padding: 20px 10px;
     }
       
     // Alternar cores de linhas

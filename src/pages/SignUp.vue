@@ -9,7 +9,7 @@
         <router-link to="/login">Login here</router-link>
     </p>
 
-    <button @click="handleSignUp" type="button" class="btn btn-primary">Sign Up</button>
+    <button @click="handleSignUp" :disabled="isInputEmpty" type="button" class="btn btn-primary">Sign Up</button>
 </template>
 
 <script>
@@ -45,6 +45,11 @@
         mounted() {
             if (localStorage.getItem('user-info')) {
                 this.$router.push('/home');
+            }
+        },
+        computed: {
+            isInputEmpty() {
+                return (!this.email || !this.password);
             }
         }
     }

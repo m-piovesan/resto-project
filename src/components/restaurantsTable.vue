@@ -12,6 +12,11 @@
 </script>
 
 <template>
+    <div class="search">
+        <label for="searchInput">Wanna search for a specific restaurant?</label>
+        <input type="text" v-model="searchTerm" placeholder="Type its information here!" />
+    </div>
+
     <DialogRoot>
         <table>
             <thead>
@@ -24,13 +29,13 @@
             </thead>
 
             <tbody>
-                <tr v-for="restaurant in restaurants" :key="restaurant.id">
+                <tr v-for="restaurant in filteredRestaurants" :key="restaurant.id">
                     <td>{{ restaurant.name }}</td>
                     <td>{{ restaurant.contact }}</td>
                     <td>{{ restaurant.address }}</td>
                     <td v-if="isUpdateRoute" class="d-flex justify-content-center gap-4 align-items-center">
-                        <DialogTrigger class="pi pi-pencil" style="color: green" />
-                        <span class="pi pi-trash"  @click="handleDeleteRestaurant(restaurant.id)" style="color: darkred"></span>
+                        <DialogTrigger class="pi pi-pencil" @click="openEditDialog(restaurant)" style="color: green" />
+                        <span class="pi pi-trash" @click="handleDeleteRestaurant(restaurant.id)" style="color: darkred"></span>
                     </td>
                 </tr>
             </tbody>
@@ -62,7 +67,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between gap-3">
-                        <button type="submit" class="btn btn-success" @click="handleSaveRestaurant">Save</button>
+                        <DialogClose type="submit" class="btn btn-success" @click="handleSaveRestaurant">Save</DialogClose>
                         <DialogClose class="btn btn-danger">Cancel</DialogClose>
                     </div>
                 </form>
@@ -81,6 +86,7 @@
         data() {
             return {
                 restaurants: [],
+                searchTerm: '',
                 editedRestaurant: {
                     id: null,
                     name: '',
@@ -92,6 +98,17 @@
         computed: {
             isUpdateRoute() {
                 return this.$route.path === '/update';
+            },
+            filteredRestaurants() {
+                const searchTerm = this.searchTerm.toLowerCase();
+                
+                return this.restaurants.filter(restaurant => {
+                    const name = restaurant.name.toLowerCase();
+                    const contact = restaurant.contact.toLowerCase();
+                    const address = restaurant.address.toLowerCase();
+
+                    return name.includes(searchTerm) || contact.includes(searchTerm) || address.includes(searchTerm);
+                });
             }
         },
         async mounted() {
@@ -103,6 +120,12 @@
             }
         },
         methods: {
+            openEditDialog(restaurant) {
+                this.editedRestaurant.id = restaurant.id;
+                this.editedRestaurant.name = restaurant.name;
+                this.editedRestaurant.contact = restaurant.contact;
+                this.editedRestaurant.address = restaurant.address;
+            },
             async handleSaveRestaurant() {
                 try {
                     let result = await axios.put(`http://localhost:3000/restaurants/${this.editedRestaurant.id}`, {
@@ -113,6 +136,8 @@
 
                     if (result.status === 200) {
                         useToast().success('Restaurant updated!', { duration: 3000, position: 'top-right' });
+                        let response = await axios.get('http://localhost:3000/restaurants');
+                        this.restaurants = response.data;
                     }
                 } catch (error) {
                     console.error(error);

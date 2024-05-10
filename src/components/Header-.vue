@@ -6,13 +6,13 @@
             <nav>
                 <ul>
                     <li>
-                        <router-link to="/">Home</router-link>
+                        <router-link :class="{ 'active': currentPage === '/home' }" to="/">Home</router-link>
                     </li>
                     <li>
-                        <router-link to="add">Add restaurant</router-link>
+                        <router-link :class="{ 'active': currentPage === '/add' }" to="add">Add restaurant</router-link>
                     </li>
                     <li>
-                        <router-link to="update">Update restaurant</router-link>
+                        <router-link :class="{ 'active': currentPage === '/update' }" to="update">Update restaurant</router-link>
                     </li>
                     <li>
                         <router-link to="/" @click="handleLogout">Logout</router-link>
@@ -28,11 +28,24 @@
 
     export default {
         name: 'myHeader',
+        data() {
+            return {
+                currentPage: '',
+            };
+        },
         methods: {
             handleLogout() {
                 localStorage.removeItem('user-info');
                 
                 this.$router.push('/login');
+            }
+        },
+        mounted() {
+            this.currentPage = this.$route.path;
+        },
+        watch: {
+            '$route'() {
+                this.currentPage = this.$route.path;
             }
         }
     }

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import './StandardLayout.scss';
+    import '../styles/StandardLayout.scss';
     
     export default {
         name: 'StandardLayout',

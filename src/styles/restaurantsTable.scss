@@ -40,3 +40,22 @@ button {
     gap: 8px;
     margin-bottom: 30px;
 }
+
+.search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    label {
+        font-weight: 500;
+    }
+
+    input {
+        width: 65%;
+        height: 40px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+}

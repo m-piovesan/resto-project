@@ -7,7 +7,7 @@
 
 <script>
     import myHeader from '../components/Header-.vue';
-    import './HomePage.scss'
+    import '../styles/HomePage.scss'
 
     export default {
         name: 'HomeLayout',

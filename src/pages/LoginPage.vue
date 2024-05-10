@@ -8,7 +8,7 @@
         <router-link to="/signup">Register here</router-link>
     </p>
 
-    <button @click="handleLogin" type="button" class="btn btn-primary">Login</button>
+    <button @click="handleLogin" :disabled="isInputEmpty" type="button" class="btn btn-primary">Login</button>
 </template>
 
 <script>
@@ -34,8 +34,7 @@
                         }
                     });
 
-                    // Login bem-sucedido
-                    if (result.status === 200 && result.data.length > 0) {
+                    if (result.status === 200 && result.data.length) {
                         useToast().success('Login successful!', 
                             { duration: 3000, position: 'top-right' });
                         
@@ -54,6 +53,11 @@
         mounted() {
             if (localStorage.getItem('user-info')) {
                 this.$router.push('/home');
+            }
+        },
+        computed: {
+            isInputEmpty() {
+                return (!this.email || !this.password);
             }
         }
     }

@@ -40,3 +40,13 @@
         },
     }
 </script>
+
+<style scoped>
+    input {
+        width: 400px;
+        height: 40px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
