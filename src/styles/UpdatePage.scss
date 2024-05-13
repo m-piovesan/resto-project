@@ -1,0 +1,27 @@
+.updateContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.addRestaurant {
+    display: flex;
+    gap: 10px;
+
+    background-color: #f2f2f2;
+    padding: 30px 10px;
+    border-radius: 20px;
+
+    p {
+        width: 80%;
+        text-align: center;
+    }
+
+    .formsField {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 20px;
+    }
+}

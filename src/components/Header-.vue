@@ -9,10 +9,10 @@
                         <router-link :class="{ 'active': currentPage === '/home' }" to="/">Home</router-link>
                     </li>
                     <li>
-                        <router-link :class="{ 'active': currentPage === '/add' }" to="add">Add restaurant</router-link>
+                        <router-link :class="{ 'active': currentPage === '/update' }" to="update">Update restaurant</router-link>
                     </li>
                     <li>
-                        <router-link :class="{ 'active': currentPage === '/update' }" to="update">Update restaurant</router-link>
+                        <router-link :class="{ 'active': currentPage === '/restaurant' }" to="restaurant">All restaurants</router-link>
                     </li>
                     <li>
                         <router-link to="/" @click="handleLogout">Logout</router-link>

@@ -24,8 +24,10 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 # next steps:
-[]: mix add rest and update in one
+- [X] mix add rest and update in one
 
-[]: develop pages for each resto
+- [X] develop pages for each resto
 
-[]: create a new page to show all restos
+- [ ] create a new page to show all restos
+
+- [ ] connect with correios API

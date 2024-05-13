@@ -1,13 +1,13 @@
 <template>
     <myHeader />
-    <div class="home-content">
+    <div class="home-content container">
         <router-view />
     </div>
 </template>
 
 <script>
     import myHeader from '../components/Header-.vue';
-    import '../styles/HomePage.scss'
+    import '../styles/HomeLayout.scss'
 
     export default {
         name: 'HomeLayout',

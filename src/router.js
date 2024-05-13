@@ -1,10 +1,11 @@
-import HomePage from "./pages/HomePage.vue";
-import SignUp from "./pages/SignUp.vue";
-import LoginPage from "./pages/LoginPage.vue";
 import StandardLayout from "./layouts/StandardLayout.vue";
 import HomeLayout from "./layouts/HomeLayout.vue";
-import AddPage from "./pages/AddPage.vue";
+
+import SignUp from "./pages/SignUp.vue";
+import LoginPage from "./pages/LoginPage.vue";
+import HomePage from "./pages/HomePage.vue";
 import UpdatePageVue from "./pages/UpdatePage.vue";
+import RestaurantPage from './pages/RestaurantPage.vue';
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -32,13 +33,13 @@ const routes = [
                 component: HomePage,
             },
             {
-                path: "add",
-                component: AddPage,
-            },
-            {
                 path: "update",
                 component: UpdatePageVue,
             },
+            {
+                path: "restaurant",
+                component: RestaurantPage,
+            }
         ]
     }
 ];

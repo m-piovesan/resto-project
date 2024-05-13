@@ -3,10 +3,9 @@ $table-header-background: #dcdcdc;
 $table-header-color: #333;
 $table-row-hover-color: #ddd;
 
-.restaurants {
+.restaurants, .restaurantsList, .addRestaurant {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     gap: 30px;
     padding-bottom: 50px;
@@ -34,7 +33,6 @@ $table-row-hover-color: #ddd;
     }
       
     td {
-        border-bottom: 1px solid #ccc;
         padding: 20px 10px;
     }
       
