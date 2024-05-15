@@ -32,7 +32,7 @@
                 <tr v-for="restaurant in filteredRestaurants" :key="restaurant.id">
                     <td>{{ restaurant.name }}</td>
                     <td>{{ restaurant.contact }}</td>
-                    <td>{{ restaurant.address }}</td>
+                    <td>{{ restaurant.street }} - {{ restaurant.number }}, {{ restaurant.city }}</td>
                     <td v-if="isUpdateRoute" class="d-flex justify-content-center gap-4 align-items-center">
                         <DialogTrigger class="pi pi-pencil" @click="openEditDialog(restaurant)" style="color: green" />
                         <span class="pi pi-trash" @click="handleDeleteRestaurant(restaurant.id)" style="color: darkred"></span>
@@ -61,10 +61,10 @@
                         <input v-model="editedRestaurant.contact" type="text" id="contact" class="form-control" required>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="address">Address:</label>
                         <input v-model="editedRestaurant.address" type="text" id="address" class="form-control" required>
-                    </div>
+                    </div> -->
 
                     <div class="d-flex justify-content-between gap-3">
                         <DialogClose type="submit" class="btn btn-success" @click="handleSaveRestaurant">Save</DialogClose>
@@ -88,10 +88,16 @@
                 restaurants: [],
                 searchTerm: '',
                 editedRestaurant: {
-                    id: null,
                     name: '',
                     contact: '',
-                    address: ''
+                    address: {
+                        number: '',
+                        cep: '',
+                        street: '',
+                        neighborhood: '',
+                        city: '',
+                        state: ''
+                    }
                 },
             }
         },
@@ -105,9 +111,21 @@
                 return this.restaurants.filter(restaurant => {
                     const name = restaurant.name.toLowerCase();
                     const contact = restaurant.contact.toLowerCase();
-                    const address = restaurant.address.toLowerCase();
+                    const number = restaurant.number;
+                    const cep = restaurant.cep;
+                    const street = restaurant.street.toLowerCase();
+                    const neighborhood = restaurant.neighborhood.toLowerCase();
+                    const city = restaurant.city.toLowerCase();
+                    const state = restaurant.state.toLowerCase();
 
-                    return name.includes(searchTerm) || contact.includes(searchTerm) || address.includes(searchTerm);
+                    return name.includes(searchTerm) ||
+                        contact.includes(searchTerm) ||
+                        number.includes(searchTerm) ||
+                        cep.includes(searchTerm) ||
+                        street.includes(searchTerm) ||
+                        neighborhood.includes(searchTerm) ||
+                        city.includes(searchTerm) ||
+                        state.includes(searchTerm);
                 });
             }
         },

@@ -84,19 +84,45 @@
       "id": "1f30",
       "name": "subway videira",
       "contact": "9999-9888",
-      "address": "do lado do shopping"
+      "zipCode": "89560-000",
+      "street": "Shopping Street",
+      "neighborhood": "Central",
+      "city": "Videira",
+      "state": "SC",
+      "number": "23"
     },
     {
+      "id": "948d",
       "name": "La Rotta",
       "contact": "99899-9999",
-      "address": "do lado da loja do meu pai",
-      "id": "948d"
+      "zipCode": "89012-345",
+      "street": "Father's Shop Street",
+      "neighborhood": "Downtown",
+      "city": "Blumenau",
+      "state": "SC",
+      "number": "11"
     },
     {
+      "id": "ee31",
       "name": "Expresso Move",
       "contact": "(41) 99999-6656",
-      "address": "perto do poli obaa",
-      "id": "ee31"
+      "zipCode": "80250-210",
+      "street": "Poli Avenue",
+      "neighborhood": "University District",
+      "city": "Curitiba",
+      "state": "PR",
+      "number": "01"
+    },
+    {
+      "id": "16d3",
+      "name": "CPX",
+      "contact": "99899-9999",
+      "zipCode": "82900337",
+      "street": "Rua Aithon Marcel Pereira da Silva",
+      "neighborhood": "Cajuru",
+      "city": "Curitiba",
+      "state": "PR",
+      "number": "100"
     }
   ]
 }
