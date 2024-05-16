@@ -28,6 +28,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 - [X] develop pages for each resto
 
-- [ ] create a new page to show all restos
+- [X] create a new page to show all restos
 
-- [ ] connect with correios API
+- [X] connect with correios API

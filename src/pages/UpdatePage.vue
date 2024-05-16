@@ -33,22 +33,22 @@
                         Type the information about the new restaurant. Click save when you're done.
                     </DialogDescription>
     
-                        <form class="address-form" @submit.prevent>
+                        <form class="address-form" @submit.prevent="handleAddRestaurant">
                             <label for="name">Name:
                                 <input v-model="name" type="text" id="name" class="form-control" required>
                             </label>
 
                             <label for="cep">CEP:
-                                <input v-model="address.cep" @blur="searchZipCode" type="text" id="cep" maxlength="9"/>
+                                <input v-model="address.cep" @blur="searchZipCode(address.cep)" type="text" id="cep" minlength="9" maxlength="9" required/>
                             </label>
                             
                             <label for="rua">Street:
-                                <input v-model="address.street" type="text" id="rua"/>
+                                <input v-model="address.street" type="text" id="rua" required/>
                             </label>
 
                             <div class="row">
                                 <label class="col-9" for="bairro">Neighborhood:
-                                    <input v-model="address.neighborhood" type="text" id="bairro"/>
+                                    <input v-model="address.neighborhood" type="text" id="bairro" required/>
                                 </label>
                             
                                 <label class="col-3" for="number">Number:
@@ -58,11 +58,11 @@
 
                             <div class="row">
                                 <label class="col-9" for="cidade">City:
-                                    <input v-model="address.city" type="text" id="cidade"/>
+                                    <input v-model="address.city" type="text" id="cidade" required/>
                                 </label>
     
                                 <label class="col-3" for="uf">State:
-                                    <input v-model="address.state" type="text" id="uf"/>
+                                    <input v-model="address.state" type="text" id="uf" required/>
                                 </label>
                             </div>
                             
@@ -71,7 +71,7 @@
                             </label>
 
                             <div class="d-flex justify-content-around mt-4">
-                                <DialogClose type="submit" class="btn btn-success w-25" @click="handleAddRestaurant">Save</DialogClose>
+                                <button type="submit" class="btn btn-success w-25">Save</button>
                                 <DialogClose class="btn btn-danger w-25" @click="clearAddressForm">Cancel</DialogClose>
                             </div>
                         </form>
@@ -134,12 +134,15 @@
                 }
             },
             clearAddressForm() {
-                this.cep = '',
+                this.name = '',
+                this.contact = '',
                 this.address = {
+                    cep: '',
                     street: '',
+                    number: '',
                     neighborhood: '',
                     city: '',
-                    state: ''
+                    state: '',
                 };
             },
             myCallback(content) {
@@ -151,15 +154,17 @@
                         state: content.uf
                     };
                 } else {
-                    this.clearAddressForm();
+                    // this.clearAddressForm();
                     // alert('Zip code not found.');
                 }
             },
-            searchZipCode() {
-                const cep = this.address.cep.replace(/\D/g, ''); // Remove non-numeric characters from the zip code
+            searchZipCode(cepToSearch) {
+                if (!cepToSearch) return;
+
+                const zip = cepToSearch.replace(/\D/g, ''); // Remove non-numeric characters from the zip code
                 const validZipCode = /^[0-9]{8}$/; // Regular expression to validate the zip code
 
-                if (cep !== '' && validZipCode.test(cep)) {
+                if (validZipCode.test(zip)) {
                     this.address = {
                         street: '...',
                         neighborhood: '...',
@@ -167,13 +172,12 @@
                         state: '...'
                     };
         
-                    const script = document.createElement('script'); // Create a script element to make the request to ViaCEP
-                    script.src = `https://viacep.com.br/ws/${cep}/json/?callback=my_callback`; // Set the script URL with the callback
-                    document.body.appendChild(script); // Add the script to the document body
+                    const script = document.createElement('script');
+                    script.src = `https://viacep.com.br/ws/${zip}/json/?callback=my_callback`;
+                    document.body.appendChild(script); 
             
-                    window.my_callback = this.myCallback; // Define the callback method globally
+                    window.my_callback = this.myCallback;
                 } else {
-                    // If the zip code is invalid, clear the form and show an alert
                     this.clearAddressForm();
                     // alert('Invalid zip code format.');
                 }

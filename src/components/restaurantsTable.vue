@@ -109,14 +109,14 @@
                 const searchTerm = this.searchTerm.toLowerCase();
                 
                 return this.restaurants.filter(restaurant => {
-                    const name = restaurant.name.toLowerCase();
-                    const contact = restaurant.contact.toLowerCase();
-                    const number = restaurant.number;
-                    const cep = restaurant.cep;
-                    const street = restaurant.street.toLowerCase();
-                    const neighborhood = restaurant.neighborhood.toLowerCase();
-                    const city = restaurant.city.toLowerCase();
-                    const state = restaurant.state.toLowerCase();
+                    const name = (restaurant.name ).toLowerCase();
+                    const contact = (restaurant.contact ).toLowerCase();
+                    const number = (restaurant.number ).toString();
+                    const cep = (restaurant.zipCode).toString();
+                    const street = (restaurant.street ).toLowerCase();
+                    const neighborhood = (restaurant.neighborhood ).toLowerCase();
+                    const city = (restaurant.city).toLowerCase();
+                    const state = (restaurant.state ).toLowerCase();
 
                     return name.includes(searchTerm) ||
                         contact.includes(searchTerm) ||
@@ -142,7 +142,7 @@
                 this.editedRestaurant.id = restaurant.id;
                 this.editedRestaurant.name = restaurant.name;
                 this.editedRestaurant.contact = restaurant.contact;
-                this.editedRestaurant.address = restaurant.address;
+                // this.editedRestaurant.address = restaurant.address;
             },
             async handleSaveRestaurant() {
                 try {

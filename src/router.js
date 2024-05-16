@@ -5,7 +5,7 @@ import SignUp from "./pages/SignUp.vue";
 import LoginPage from "./pages/LoginPage.vue";
 import HomePage from "./pages/HomePage.vue";
 import UpdatePageVue from "./pages/UpdatePage.vue";
-import RestaurantPage from './pages/RestaurantPage.vue';
+import RestaurantPage from './pages/RestaurantsPage.vue';
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -37,7 +37,7 @@ const routes = [
                 component: UpdatePageVue,
             },
             {
-                path: "restaurant",
+                path: "restaurants",
                 component: RestaurantPage,
             }
         ]
