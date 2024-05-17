@@ -33,7 +33,7 @@
                         Type the information about the new restaurant. Click save when you're done.
                     </DialogDescription>
     
-                        <form class="address-form" @submit.prevent="handleAddRestaurant">
+                        <form class="address-form" @submit="handleAddRestaurant">
                             <label for="name">Name:
                                 <input v-model="name" type="text" id="name" class="form-control" required>
                             </label>
@@ -147,15 +147,14 @@
             },
             myCallback(content) {
                 if (!('erro' in content)) {
-                    this.address = {
-                        street: content.logradouro,
-                        neighborhood: content.bairro,
-                        city: content.localidade,
-                        state: content.uf
-                    };
+                    this.address.street = content.logradouro;
+                    this.address.neighborhood = content.bairro;
+                    this.address.city = content.localidade;
+                    this.address.state = content.uf;
+                    this.address.cep = content.cep;
                 } else {
-                    // this.clearAddressForm();
-                    // alert('Zip code not found.');
+                    this.clearAddressForm();
+                    alert('Zip code not found.');
                 }
             },
             searchZipCode(cepToSearch) {
@@ -179,7 +178,7 @@
                     window.my_callback = this.myCallback;
                 } else {
                     this.clearAddressForm();
-                    // alert('Invalid zip code format.');
+                    alert('Invalid zip code format.');
                 }
             }
         },
