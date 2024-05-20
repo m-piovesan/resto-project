@@ -112,6 +112,17 @@
       "city": "Curitiba",
       "state": "PR",
       "number": "01"
+    },
+    {
+      "id": "e262",
+      "name": "CPX",
+      "contact": "99899-9999",
+      "zipCode": "82900-337",
+      "street": "Rua Aithon Marcel Pereira da Silva",
+      "neighborhood": "Cajuru",
+      "city": "Curitiba",
+      "state": "PR",
+      "number": "100"
     }
   ]
 }

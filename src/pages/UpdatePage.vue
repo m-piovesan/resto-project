@@ -29,46 +29,13 @@
                 <DialogOverlay class="inset-0 fixed bg-black/60" />
                 <DialogContent class="DialogContent">
                     <DialogTitle class="text-success m-0 fw-medium fs-3 mb-1">Add Restaurant</DialogTitle>
+                    
                     <DialogDescription class="DialogDescription">
                         Type the information about the new restaurant. Click save when you're done.
                     </DialogDescription>
     
-                        <form class="address-form" @submit="handleAddRestaurant">
-                            <label for="name">Name:
-                                <input v-model="name" type="text" id="name" class="form-control" required>
-                            </label>
-
-                            <label for="cep">CEP:
-                                <input v-model="address.cep" @blur="searchZipCode(address.cep)" type="text" id="cep" minlength="9" maxlength="9" required/>
-                            </label>
-                            
-                            <label for="rua">Street:
-                                <input v-model="address.street" type="text" id="rua" required/>
-                            </label>
-
-                            <div class="row">
-                                <label class="col-9" for="bairro">Neighborhood:
-                                    <input v-model="address.neighborhood" type="text" id="bairro" required/>
-                                </label>
-                            
-                                <label class="col-3" for="number">Number:
-                                    <input v-model="address.number" type="text" id="number" class="form-control" required>
-                                </label>
-                            </div>
-
-                            <div class="row">
-                                <label class="col-9" for="cidade">City:
-                                    <input v-model="address.city" type="text" id="cidade" required/>
-                                </label>
-    
-                                <label class="col-3" for="uf">State:
-                                    <input v-model="address.state" type="text" id="uf" required/>
-                                </label>
-                            </div>
-                            
-                            <label for="number">Contact:
-                                <input v-model="contact" type="text" id="contact" class="form-control" required>
-                            </label>
+                        <form @submit.prevent="handleAddRestaurant">
+                            <RestaurantForm />
 
                             <div class="d-flex justify-content-around mt-4">
                                 <button type="submit" class="btn btn-success w-25">Save</button>
@@ -83,7 +50,6 @@
             <h3>Restaurants List:</h3>
             <RestaurantsTable />
         </div>
-        
     </div>
 </template>
 
@@ -93,12 +59,14 @@
     import 'vue-toast-notification/dist/theme-sugar.css';
 
     import RestaurantsTable from '../components/restaurantsTable.vue'
+    import RestaurantForm from '../components/RestaurantForm.vue'
     import '../styles/UpdatePage.scss'
 
     export default {
         name: 'UpdatePage',
         components: {
             RestaurantsTable,
+            RestaurantForm,
         },
         data() {
             return {
@@ -114,10 +82,20 @@
                 }
             }
         },
+        props: {
+            newName: String,
+            newContact: String,
+            newCep: String,
+            newStreet: String,
+            newNumber: String,
+            newNeighborhood: String,
+            newCity: String,
+            newState: String,
+        },
         methods: {
             async handleAddRestaurant() {
                 let result = await axios.post('http://localhost:3000/restaurants', {
-                    name: this.name,
+                    name: this.newName,
                     contact: this.contact,
                     zipCode: this.address.cep,
                     street: this.address.street,
@@ -128,57 +106,8 @@
                 });
 
                 if (result.status === 201) {
-                    this.$router.push('/update');
-                    useToast().success('Restaurant added!', 
-                        { duration: 3000, position: 'top-right' });
-                }
-            },
-            clearAddressForm() {
-                this.name = '',
-                this.contact = '',
-                this.address = {
-                    cep: '',
-                    street: '',
-                    number: '',
-                    neighborhood: '',
-                    city: '',
-                    state: '',
-                };
-            },
-            myCallback(content) {
-                if (!('erro' in content)) {
-                    this.address.street = content.logradouro;
-                    this.address.neighborhood = content.bairro;
-                    this.address.city = content.localidade;
-                    this.address.state = content.uf;
-                    this.address.cep = content.cep;
-                } else {
-                    this.clearAddressForm();
-                    alert('Zip code not found.');
-                }
-            },
-            searchZipCode(cepToSearch) {
-                if (!cepToSearch) return;
-
-                const zip = cepToSearch.replace(/\D/g, ''); // Remove non-numeric characters from the zip code
-                const validZipCode = /^[0-9]{8}$/; // Regular expression to validate the zip code
-
-                if (validZipCode.test(zip)) {
-                    this.address = {
-                        street: '...',
-                        neighborhood: '...',
-                        city: '...',
-                        state: '...'
-                    };
-        
-                    const script = document.createElement('script');
-                    script.src = `https://viacep.com.br/ws/${zip}/json/?callback=my_callback`;
-                    document.body.appendChild(script); 
-            
-                    window.my_callback = this.myCallback;
-                } else {
-                    this.clearAddressForm();
-                    alert('Invalid zip code format.');
+                    location.reload(); 
+                    useToast().success('Restaurant added!', { duration: 3000, position: 'top-right' });
                 }
             }
         },

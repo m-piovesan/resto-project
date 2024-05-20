@@ -24,7 +24,7 @@
                     <th>Name</th>
                     <th>Contact</th>
                     <th>Address</th>
-                    <th v-if="isUpdateRoute" class="text-center">Actions</th> <!-- Adicionando uma coluna para ações, mostrada apenas na rota /update -->
+                    <th v-if="isUpdateRoute" class="text-center">Actions</th>
                 </tr>
             </thead>
 
@@ -50,25 +50,12 @@
                     Edit the information about the restaurant. Click save when you're done.
                 </DialogDescription>
                 
-                <form @submit.prevent="saveRestaurant">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input v-model="editedRestaurant.name" type="text" id="name" class="form-control" required>
-                    </div>
+                <form @submit.prevent="handleSaveRestaurant">
+                    <RestaurantForm/>
 
-                    <div class="form-group">
-                        <label for="contact">Contact:</label>
-                        <input v-model="editedRestaurant.contact" type="text" id="contact" class="form-control" required>
-                    </div>
-
-                    <!-- <div class="form-group">
-                        <label for="address">Address:</label>
-                        <input v-model="editedRestaurant.address" type="text" id="address" class="form-control" required>
-                    </div> -->
-
-                    <div class="d-flex justify-content-between gap-3">
-                        <DialogClose type="submit" class="btn btn-success" @click="handleSaveRestaurant">Save</DialogClose>
-                        <DialogClose class="btn btn-danger">Cancel</DialogClose>
+                    <div class="d-flex justify-content-around mt-4">
+                        <DialogClose type="submit" class="btn btn-success w-25" @click="handleSaveRestaurant">Save</DialogClose>
+                        <DialogClose class="btn btn-danger w-25">Cancel</DialogClose>
                     </div>
                 </form>
             </DialogContent>
@@ -80,9 +67,13 @@
     import axios from 'axios';
     import { useToast } from 'vue-toast-notification';
     import '../styles/restaurantsTable.scss';
+    import RestaurantForm from './RestaurantForm.vue';
     
     export default {
         name: 'RestaurantsTable',
+        components: {
+            RestaurantForm,
+        },
         data() {
             return {
                 restaurants: [],
