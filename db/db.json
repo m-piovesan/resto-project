@@ -81,17 +81,6 @@
   ],
   "restaurants": [
     {
-      "id": "1f30",
-      "name": "subway videira",
-      "contact": "9999-9888",
-      "zipCode": "89560-000",
-      "street": "Shopping Street",
-      "neighborhood": "Central",
-      "city": "Videira",
-      "state": "SC",
-      "number": "23"
-    },
-    {
       "id": "948d",
       "name": "La Rotta",
       "contact": "99899-9999",
@@ -114,15 +103,26 @@
       "number": "01"
     },
     {
-      "id": "e262",
       "name": "CPX",
-      "contact": "99899-9999",
+      "contact": "9",
       "zipCode": "82900-337",
       "street": "Rua Aithon Marcel Pereira da Silva",
       "neighborhood": "Cajuru",
       "city": "Curitiba",
       "state": "PR",
-      "number": "100"
+      "number": "10",
+      "id": "e262"
+    },
+    {
+      "name": "casa videira",
+      "contact": "99",
+      "zipCode": "89562-008",
+      "street": "Rua José Formiguieri",
+      "neighborhood": "Alvorada",
+      "city": "Videira",
+      "state": "SC",
+      "number": "379",
+      "id": "a205"
     }
   ]
 }

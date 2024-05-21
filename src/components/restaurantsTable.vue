@@ -46,18 +46,14 @@
             
             <DialogContent class="DialogContent">
                 <DialogTitle class="text-success m-0 fw-medium fs-3 mb-1">Edit Restaurant</DialogTitle>
+                
                 <DialogDescription class="DialogDescription">
                     Edit the information about the restaurant. Click save when you're done.
                 </DialogDescription>
                 
-                <form @submit.prevent="handleSaveRestaurant">
-                    <RestaurantForm/>
-
-                    <div class="d-flex justify-content-around mt-4">
-                        <DialogClose type="submit" class="btn btn-success w-25" @click="handleSaveRestaurant">Save</DialogClose>
-                        <DialogClose class="btn btn-danger w-25">Cancel</DialogClose>
-                    </div>
-                </form>
+                <restaurant-form :restaurantData="editedRestaurant" :is-edit="true" @form-submitted="handleSaveRestaurant" />
+                
+                <DialogClose class="btn btn-danger w-25">Cancel</DialogClose>
             </DialogContent>
         </DialogPortal>
     </DialogRoot>
@@ -133,14 +129,25 @@
                 this.editedRestaurant.id = restaurant.id;
                 this.editedRestaurant.name = restaurant.name;
                 this.editedRestaurant.contact = restaurant.contact;
-                // this.editedRestaurant.address = restaurant.address;
+                this.editedRestaurant.address.number = restaurant.number;
+                this.editedRestaurant.address.cep = restaurant.zipCode;
+                this.editedRestaurant.address.street = restaurant.street;
+                this.editedRestaurant.address.neighborhood = restaurant.neighborhood;
+                this.editedRestaurant.address.city = restaurant.city;
+                this.editedRestaurant.address.state = restaurant.state;
             },
-            async handleSaveRestaurant() {
+            async handleSaveRestaurant(updatedRestaurantData) {
+                console.log(updatedRestaurantData);
                 try {
                     let result = await axios.put(`http://localhost:3000/restaurants/${this.editedRestaurant.id}`, {
-                        name: this.editedRestaurant.name,
-                        contact: this.editedRestaurant.contact,
-                        address: this.editedRestaurant.address
+                        name: updatedRestaurantData.name,
+                        contact: updatedRestaurantData.contact,
+                        zipCode: updatedRestaurantData.address.cep,
+                        street: updatedRestaurantData.address.street,
+                        neighborhood: updatedRestaurantData.address.neighborhood,
+                        city: updatedRestaurantData.address.city,
+                        state: updatedRestaurantData.address.state,
+                        number: updatedRestaurantData.address.number,
                     });
 
                     if (result.status === 200) {

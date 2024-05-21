@@ -34,14 +34,9 @@
                         Type the information about the new restaurant. Click save when you're done.
                     </DialogDescription>
     
-                        <form @submit.prevent="handleAddRestaurant">
-                            <RestaurantForm />
-
-                            <div class="d-flex justify-content-around mt-4">
-                                <button type="submit" class="btn btn-success w-25">Save</button>
-                                <DialogClose class="btn btn-danger w-25" @click="clearAddressForm">Cancel</DialogClose>
-                            </div>
-                        </form>
+                    <RestaurantForm @form-submitted="handleAddRestaurant" :is-edit="false" />
+                    
+                    <DialogClose class="btn btn-danger">Cancel</DialogClose>
                 </DialogContent>
             </DialogPortal>
         </DialogRoot>
@@ -82,32 +77,27 @@
                 }
             }
         },
-        props: {
-            newName: String,
-            newContact: String,
-            newCep: String,
-            newStreet: String,
-            newNumber: String,
-            newNeighborhood: String,
-            newCity: String,
-            newState: String,
-        },
         methods: {
-            async handleAddRestaurant() {
-                let result = await axios.post('http://localhost:3000/restaurants', {
-                    name: this.newName,
-                    contact: this.contact,
-                    zipCode: this.address.cep,
-                    street: this.address.street,
-                    neighborhood: this.address.neighborhood,
-                    city: this.address.city,
-                    state: this.address.state,
-                    number: this.address.number,
-                });
+            async handleAddRestaurant(newRestaurantData) {
+                try {
+                    let result = await axios.post('http://localhost:3000/restaurants', {
+                        name: newRestaurantData.name,
+                        contact: newRestaurantData.contact,
+                        zipCode: newRestaurantData.address.cep,
+                        street: newRestaurantData.address.street,
+                        number: newRestaurantData.address.number,
+                        neighborhood: newRestaurantData.address.neighborhood,
+                        city: newRestaurantData.address.city,
+                        state: newRestaurantData.address.state,
+                    });
 
-                if (result.status === 201) {
-                    location.reload(); 
-                    useToast().success('Restaurant added!', { duration: 3000, position: 'top-right' });
+                    if (result.status === 201) {
+                        location.reload(); 
+                        useToast().success('Restaurant added!', { duration: 3000, position: 'top-right' });
+                    }
+                } catch (error) {
+                    console.error('Error adding restaurant:', error);
+                    useToast().error('Failed to add restaurant. Please try again later.', { duration: 3000, position: 'top-right' });
                 }
             }
         },
