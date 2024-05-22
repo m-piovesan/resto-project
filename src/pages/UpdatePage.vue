@@ -36,7 +36,7 @@
     
                     <RestaurantForm @form-submitted="handleAddRestaurant" :is-edit="false" />
                     
-                    <DialogClose class="btn btn-danger">Cancel</DialogClose>
+                    <DialogClose class="btn btn-danger mt-2">Cancel</DialogClose>
                 </DialogContent>
             </DialogPortal>
         </DialogRoot>

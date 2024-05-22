@@ -9,6 +9,7 @@
     <RestaurantCard
         v-for="(restaurant) in restaurants"
         :key="restaurant.id"
+        :id="restaurant.id"
         :name="restaurant.name"
         :address="`${restaurant.street}, ${restaurant.number}, ${restaurant.neighborhood}, ${restaurant.city} - ${restaurant.state}, ${restaurant.zipCode}`"
         :contact="restaurant.contact"
@@ -17,7 +18,7 @@
 
 <script>
     export default {
-        name: 'RestaurantsPage',
+        name: 'RestaurantsList',
         data() {
             return {
                 restaurants: []

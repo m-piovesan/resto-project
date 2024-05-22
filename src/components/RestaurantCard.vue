@@ -28,8 +28,10 @@
                     <p> {{ contact }} </p>
                 </div>
 
-                <button class="btn btn-success w-50">
-                    See more
+                <button class="btn btn-success w-50" v-if="isRestaurantsRoute">
+                    <router-link class="text-decoration-none text-white" :to="`/restaurants/${id}`">
+                        <span>Order now</span>
+                    </router-link>
                 </button>
             </div>
         
@@ -43,14 +45,22 @@
 </template>
 
 <script>
-    import '../styles/RestaurantPage.scss'
+    import { useRoute } from 'vue-router';
+import '../styles/RestaurantPage.scss'
 
     export default {
         name: 'RestaurantCard',
         props: {
             name: String,
             address: String,
-            contact: String
+            contact: String,
+            id: String
+        },
+        setup() {
+            const route = useRoute();
+            const isRestaurantsRoute = route.path === '/restaurants';
+
+            return { isRestaurantsRoute };
         },
         methods : {
             capitalizeWords(name) {

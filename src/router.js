@@ -4,8 +4,9 @@ import HomeLayout from "./layouts/HomeLayout.vue";
 import SignUp from "./pages/SignUp.vue";
 import LoginPage from "./pages/LoginPage.vue";
 import HomePage from "./pages/HomePage.vue";
-import UpdatePageVue from "./pages/UpdatePage.vue";
-import RestaurantPage from './pages/RestaurantsPage.vue';
+import UpdatePage from "./pages/UpdatePage.vue";
+import RestaurantsPage from './pages/RestaurantsList.vue';
+import RestaurantPage from './pages/RestaurantPage.vue';
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -13,7 +14,7 @@ const routes = [
     {
         path: "",
         component: StandardLayout,
-        children : [
+        children: [
             {
                 path: "/signup",
                 component: SignUp,
@@ -27,18 +28,23 @@ const routes = [
     {
         path: "/",
         component: HomeLayout,
-        children : [
+        children: [
             {
                 path: "home",
                 component: HomePage,
             },
             {
                 path: "update",
-                component: UpdatePageVue,
+                component: UpdatePage,
             },
             {
                 path: "restaurants",
+                component: RestaurantsPage,
+            },
+            {
+                path: "restaurants/:id",
                 component: RestaurantPage,
+                name: "RestaurantPage"
             }
         ]
     }

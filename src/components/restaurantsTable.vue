@@ -53,7 +53,7 @@
                 
                 <restaurant-form :restaurantData="editedRestaurant" :is-edit="true" @form-submitted="handleSaveRestaurant" />
                 
-                <DialogClose class="btn btn-danger w-25">Cancel</DialogClose>
+                <DialogClose class="btn btn-danger w-100 mt-2">Cancel</DialogClose>
             </DialogContent>
         </DialogPortal>
     </DialogRoot>
@@ -151,9 +151,10 @@
                     });
 
                     if (result.status === 200) {
-                        useToast().success('Restaurant updated!', { duration: 3000, position: 'top-right' });
                         let response = await axios.get('http://localhost:3000/restaurants');
                         this.restaurants = response.data;
+                        location.reload(); 
+                        useToast().success('Restaurant updated!', { duration: 3000, position: 'top-right' });
                     }
                 } catch (error) {
                     console.error(error);
