@@ -1,46 +1,102 @@
 <template>
     <form @submit.prevent="handleSubmit">
         <label for="name">Name:
-            <input :value="isEdit ? localRestaurantData.name : name" @input="isEdit ? localRestaurantData.name = $event.target.value : name = $event.target.value" type="text" id="name" required>
+            <input
+                :value="isEdit ? localRestaurantData.name : name"
+                @input="isEdit ? localRestaurantData.name = $event.target.value : name = $event.target.value"
+                type="text"
+                id="name"
+                required
+            />
         </label>
 
         <label for="cep">CEP:
-            <input :value="isEdit ? localRestaurantData.address.cep : address.cep" @input="isEdit ? localRestaurantData.address.cep = $event.target.value : address.cep = $event.target.value" @blur="searchZipCode(address.cep)" type="text" id="cep" minlength="9" maxlength="9" required/>
+            <input
+                :value="isEdit ? localRestaurantData.address.cep : address.cep"
+                @input="isEdit ? localRestaurantData.address.cep = $event.target.value : address.cep = $event.target.value"
+                @blur="searchZipCode(isEdit ? localRestaurantData.address.cep : address.cep)"
+                type="text"
+                id="cep"
+                minlength="9"
+                maxlength="9"
+                required
+            />
         </label>
 
         <label for="rua">Street:
-            <input :value="isEdit ? localRestaurantData.address.street : address.street" @input="isEdit ? localRestaurantData.address.street = $event.target.value : street = $event.target.value" type="text" id="rua" required/>
+            <input
+                :value="isEdit ? localRestaurantData.address.street : address.street"
+                @input="isEdit ? localRestaurantData.address.street = $event.target.value : address.street = $event.target.value"
+                type="text"
+                id="rua"
+                required
+            />
         </label>
 
         <div class="row">
             <label class="col-9" for="bairro">Neighborhood:
-                <input :value="isEdit ? localRestaurantData.address.neighborhood : address.neighborhood" @input="isEdit ? localRestaurantData.address.neighborhood = $event.target.value : neighborhood = $event.target.value" type="text" id="bairro" required/>
+                <input
+                    :value="isEdit ? localRestaurantData.address.neighborhood : address.neighborhood"
+                    @input="isEdit ? localRestaurantData.address.neighborhood = $event.target.value : address.neighborhood = $event.target.value"
+                    type="text"
+                    id="bairro"
+                    required
+                />
             </label>
 
             <label class="col-3" for="number">Number:
-                <input :value="isEdit ? localRestaurantData.address.number : address.number" @input="isEdit ? localRestaurantData.address.number = $event.target.value : address.number = $event.target.value" type="text" id="number" required>
+                <input
+                    :value="isEdit ? localRestaurantData.address.number : address.number"
+                    @input="isEdit ? localRestaurantData.address.number = $event.target.value : address.number = $event.target.value"
+                    type="text"
+                    id="number"
+                    required
+                />
             </label>
         </div>
 
         <div class="row">
             <label class="col-9" for="cidade">City:
-                <input :value="isEdit ? localRestaurantData.address.city : address.city" @input="isEdit ? localRestaurantData.address.city = $event.target.value : city = $event.target.value" type="text" id="cidade" required/>
+                <input
+                    :value="isEdit ? localRestaurantData.address.city : address.city"
+                    @input="isEdit ? localRestaurantData.address.city = $event.target.value : address.city = $event.target.value"
+                    type="text"
+                    id="cidade"
+                    required
+                />
             </label>
 
             <label class="col-3" for="uf">State:
-                <input :value="isEdit ? localRestaurantData.address.state : address.state" @input="isEdit ? localRestaurantData.address.state = $event.target.value : state = $event.target.value" type="text" id="uf" required/>
+                <input
+                    :value="isEdit ? localRestaurantData.address.state : address.state"
+                    @input="isEdit ? localRestaurantData.address.state = $event.target.value : address.state = $event.target.value"
+                    type="text"
+                    id="uf"
+                    required
+                />
             </label>
         </div>
 
         <label for="contact">Contact:
-            <input :value="isEdit ? localRestaurantData.contact : contact" @input="isEdit ? localRestaurantData.contact = $event.target.value : contact = $event.target.value" type="text" id="contact" required>
+            <input
+                :value="isEdit ? localRestaurantData.contact : contact"
+                @input="isEdit ? localRestaurantData.contact = $event.target.value : contact = $event.target.value"
+                type="text"
+                id="contact"
+                required
+            />
         </label>
 
         <div class="d-flex justify-content-around mt-4">
-            <button type="submit" class="btn btn-success w-100">Save</button>
+            <button
+                type="submit"
+                class="btn btn-success w-100"
+                :disabled="!allFieldsFilled"
+            > Save </button>
         </div>
     </form>
 </template>
+
 
 <script>
     import axios from 'axios';
@@ -93,6 +149,22 @@
                 deep: true
             }
         },
+        computed: {
+            allFieldsFilled() {
+                const fieldsToCheck = [
+                    this.isEdit ? this.localRestaurantData.name : this.name,
+                    this.isEdit ? this.localRestaurantData.address.cep : this.address.cep,
+                    this.isEdit ? this.localRestaurantData.address.street : this.address.street,
+                    this.isEdit ? this.localRestaurantData.address.neighborhood : this.address.neighborhood,
+                    this.isEdit ? this.localRestaurantData.address.number : this.address.number,
+                    this.isEdit ? this.localRestaurantData.address.city : this.address.city,
+                    this.isEdit ? this.localRestaurantData.address.state : this.address.state,
+                    this.isEdit ? this.localRestaurantData.contact : this.contact
+                ];
+
+                return fieldsToCheck.every(field => field.trim() !== '');
+            }
+        },
         async mounted() {
             try {
                 let response = await axios.get('http://localhost:3000/restaurants');
@@ -116,11 +188,19 @@
             },
             myCallback(content) {
                 if (!('erro' in content)) {
-                    this.address.street = content.logradouro;
-                    this.address.neighborhood = content.bairro;
-                    this.address.city = content.localidade;
-                    this.address.state = content.uf;
-                    this.address.cep = content.cep;
+                    if (this.isEdit) {
+                        this.localRestaurantData.address.street = content.logradouro;
+                        this.localRestaurantData.address.neighborhood = content.bairro;
+                        this.localRestaurantData.address.city = content.localidade;
+                        this.localRestaurantData.address.state = content.uf;
+                        this.localRestaurantData.address.cep = content.cep;
+                    } else {
+                        this.address.street = content.logradouro;
+                        this.address.neighborhood = content.bairro;
+                        this.address.city = content.localidade;
+                        this.address.state = content.uf;
+                        this.address.cep = content.cep;
+                    }
                 } else {
                     this.clearAddressForm();
                     alert('Zip code not found.');
@@ -139,6 +219,15 @@
                         city: '...',
                         state: '...'
                     };
+
+                    if (this.isEdit) {
+                        this.localRestaurantData.address = {
+                            street: '...',
+                            neighborhood: '...',
+                            city: '...',
+                            state: '...'
+                        };
+                    }
         
                     const script = document.createElement('script');
                     script.src = `https://viacep.com.br/ws/${zip}/json/?callback=my_callback`;

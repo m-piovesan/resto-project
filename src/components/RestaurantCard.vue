@@ -15,6 +15,7 @@
             <div class="card-menu col">
                 <div>
                     <h4>Main dishes:</h4>
+
                     <ul>
                         <li>Grilled Salmon</li>
                         <li>Vegetable Stir-Fry</li>
@@ -28,16 +29,15 @@
                     <p> {{ contact }} </p>
                 </div>
 
-                <button class="btn btn-success w-50" v-if="isRestaurantsRoute">
-                    <router-link class="text-decoration-none text-white" :to="`/restaurants/${id}`">
-                        <span>Order now</span>
-                    </router-link>
-                </button>
+                <router-link class="text-decoration-none text-white btn btn-success w-50" v-if="isRestaurantsRoute" :to="`/restaurants/${id}`">
+                    <span>See more</span>
+                </router-link>
             </div>
         
             <div class="card-description col">
                 <h4>Address:</h4>
                 <p> {{ address }} </p>
+                
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.5004393465388!2d-49.23388622469395!3d-25.454959933879564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce517b2fd34af%3A0x9eba470968a1d3f9!2sHot%20Dog%20Expresso%20Move%20Jd.%20das%20Am%C3%A9ricas!5e0!3m2!1spt-BR!2sbr!4v1715631874474!5m2!1spt-BR!2sbr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
@@ -46,7 +46,7 @@
 
 <script>
     import { useRoute } from 'vue-router';
-import '../styles/RestaurantPage.scss'
+    import '../styles/RestaurantCard.scss'
 
     export default {
         name: 'RestaurantCard',

@@ -77,6 +77,12 @@
       "name": "kanye",
       "email": "ye@email.com",
       "password": "senha"
+    },
+    {
+      "id": "c682",
+      "name": "Matheus",
+      "email": "schaitel@email.com",
+      "password": "senha"
     }
   ],
   "restaurants": [

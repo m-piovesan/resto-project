@@ -12,7 +12,7 @@
                         <router-link :class="{ 'active': currentPage === '/update' }" to="/update">Update restaurant</router-link>
                     </li>
                     <li>
-                        <router-link :class="{ 'active': currentPage === '/restaurants' }" to="/restaurants">All restaurants</router-link>
+                        <router-link :class="{ 'active': $route.fullPath.includes('/restaurants') }" to="/restaurants">All restaurants</router-link>
                     </li>
                     <li>
                         <router-link to="/" @click="handleLogout">Logout</router-link>
