@@ -15,10 +15,45 @@ body {
 
     h2 {
         text-align: center;
+        margin-bottom: 30px;
+        text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+        color: #fff;
     }
 
     img {
         aspect-ratio: 16/9;
+    }
+
+    &_social {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-size: larger;
+
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+
+            transition: color 0.2s;
+
+            &:hover {
+                color: #b9b9b9;
+            }
+        }
     }
 }
 

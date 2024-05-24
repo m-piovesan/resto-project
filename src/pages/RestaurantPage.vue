@@ -6,24 +6,20 @@
     import { useToast } from 'vue-toast-notification';
     import '../styles/RestaurantPage.scss'
 
-    // Obtenha a rota atual para acessar os parâmetros da rota
     const route = useRoute();
-
-    // Inicialize o estado para armazenar os dados do restaurante
     const restaurant = ref(null);
+    const toast = useToast();
 
-    // Função para buscar os dados do restaurante baseado no ID da rota
     const fetchRestaurant = async () => {
         try {
             const response = await axios.get(`http://localhost:3000/restaurants/${route.params.id}`);
             restaurant.value = response.data;
         } catch (error) {
             console.error(error);
-            useToast().error('Error fetching restaurant!', { duration: 3000, position: 'top-right' });
+            toast.error('Error fetching restaurant!', { duration: 3000, position: 'top-right' });
         }
     };
 
-    // Chame a função fetchRestaurant quando o componente for montado
     onMounted(fetchRestaurant);
 </script>
 
@@ -42,11 +38,30 @@
         <div class="container">
             <div class="rest-banner_content w-100 row">
                 <div class="col-3">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum repellat saepe, hic molestias quae quidem suscipit asperiores accusamus optio consequuntur vitae eligendi excepturi, doloribus quam, voluptas ipsum natus sapiente ex.</p>
+                    <h2>Happenings:</h2>
+                    <p>Stay tuned to our website and social media for the latest happenings and exclusive events at The OG, the heart of Denver's dynamic brunch and dining scene. Indulge in our themed brunches, relish our monthly specials, and join us in giving back to the community. There’s always something new and exciting to look forward to.</p>
+                    <p>Don’t miss out – book your table today and follow us on Instagram for daily inspirations and surprises!</p>
                 </div>
     
-                <div class="col-4">
-                    <h2>uepa</h2>
+                <div class="col-4 rest-banner_social" v-if="restaurant">
+                    <h2>Follow us:</h2>
+
+                    <div>
+                        <a href="#">
+                            <span class="pi pi-instagram"></span>
+                            @{{ restaurant.name }} 
+                        </a>
+    
+                        <a href="#"> 
+                            <span class="pi pi-whatsapp"></span>
+                            {{ restaurant.contact }} 
+                        </a>
+    
+                        <a href="#">  
+                            <span class="pi pi-facebook"></span>
+                            /{{ restaurant.name }}
+                        </a>
+                    </div>
                 </div>
                 
                 <div id="carouselExampleInterval" class="carousel slide col-5" data-bs-ride="carousel">
@@ -75,7 +90,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
 
