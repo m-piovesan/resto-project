@@ -1,0 +1,40 @@
+.comment {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    flex-direction: row;
+    text-align: justify;
+    align-items: center;
+}
+
+.AvatarRoot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    overflow: hidden;
+    user-select: none;
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 100%;
+    background-color: var(--black-a3);
+}
+  
+.AvatarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+  
+.AvatarFallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: var(--grass-11);
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 500;
+}

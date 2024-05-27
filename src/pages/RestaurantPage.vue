@@ -1,14 +1,20 @@
 <script setup>
     import RestaurantCard from '@/components/RestaurantCard.vue';
     import axios from 'axios';
-    import { onMounted, ref } from 'vue';
+    import { computed, onMounted, ref } from 'vue';
     import { useRoute } from 'vue-router';
     import { useToast } from 'vue-toast-notification';
+    import ReviewComment from '@/components/ReviewComment.vue';
     import '../styles/RestaurantPage.scss'
+    import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue';
 
     const route = useRoute();
     const restaurant = ref(null);
+    const comments = ref([]);
     const toast = useToast();
+    const numberOfComments = 3;
+
+    const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`)
 
     const fetchRestaurant = async () => {
         try {
@@ -20,7 +26,37 @@
         }
     };
 
-    onMounted(fetchRestaurant);
+    const fetchComments = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/comments`);
+            comments.value = response.data;
+        } catch (error) {
+            console.error(error);
+            toast.error('Error fetching comments!', { duration: 3000, position: 'top-right' });
+        }
+    }
+
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        
+        return array;
+    };
+
+    const selectRandomComments = (comments) => {
+        const shuffledComments = shuffleArray(comments);
+        return shuffledComments.slice(0, numberOfComments);
+    };
+
+    const removeBlankSpaces = (string) => string.replace(/\s/g, '');
+    const selectedComments = computed(() => console.log(selectRandomComments(comments.value)));
+
+    onMounted(() => {
+        fetchRestaurant();
+        fetchComments();
+    });
 </script>
 
 <template>
@@ -34,7 +70,7 @@
 
     <p v-else>Loading...</p>
 
-    <div class="rest-banner mt-3">
+    <div class="rest-banner mt-3" v-show="restaurant">
         <div class="container">
             <div class="rest-banner_content w-100 row">
                 <div class="col-3">
@@ -49,17 +85,17 @@
                     <div>
                         <a href="#">
                             <span class="pi pi-instagram"></span>
-                            @{{ restaurant.name }} 
+                            @{{ removeBlankSpaces(restaurant.name) }} 
                         </a>
     
                         <a href="#"> 
                             <span class="pi pi-whatsapp"></span>
-                            {{ restaurant.contact }} 
+                            {{ removeBlankSpaces(restaurant.contact) }} 
                         </a>
     
                         <a href="#">  
                             <span class="pi pi-facebook"></span>
-                            /{{ restaurant.name }}
+                            /{{ removeBlankSpaces(restaurant.name) }}
                         </a>
                     </div>
                 </div>
@@ -93,17 +129,55 @@
         </div>
     </div>
 
-    <div class="suggestions row">
+    <div class="suggestions row pb-3 w-100" v-show="restaurant">
         <div class="col-4">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum repellat saepe, hic molestias quae quidem suscipit asperiores accusamus optio consequuntur vitae eligendi excepturi, doloribus quam, voluptas ipsum natus sapiente ex.</p>
+            <ScrollAreaRoot
+                class="ScrollAreaRoot card"
+                style="--scrollbar-size: 10px"
+            >
+                <ScrollAreaViewport class="ScrollAreaViewport">
+                    <div :style="{ padding: '15px 20px' }">
+                        <div class="Text">
+                            Full Menu
+                        </div>
+
+                        <div
+                            v-for="tag in tags"
+                            :key="tag"
+                            class="Tag"
+                        >
+                            <span>{{ tag }}</span>
+                            <span>R$10,00</span>
+                        </div>
+                    </div>
+                </ScrollAreaViewport>
+                
+                <ScrollAreaScrollbar
+                    class="ScrollAreaScrollbar"
+                    orientation="vertical"
+                >
+                    <ScrollAreaThumb class="ScrollAreaThumb" />
+                </ScrollAreaScrollbar>
+                
+                <ScrollAreaScrollbar
+                    class="ScrollAreaScrollbar"
+                    orientation="horizontal"
+                >
+                    <ScrollAreaThumb class="ScrollAreaThumb" />
+                </ScrollAreaScrollbar>
+            </ScrollAreaRoot>
         </div>
 
-        <div class="col-4">
-            <h2>uepa</h2>
-        </div>
+        <div class="col-8">
+            <h2>Reviews:</h2>
 
-        <div class="col-4">
-            <h2>uepa</h2>
+            <ReviewComment
+                v-for="(comment) in comments"
+                :key="comment.id"
+                :URL="comment.URL"
+                :img-alt="comment.imgAlt"
+                :text="comment.text"
+            />
         </div>
     </div>
 </template>

@@ -130,5 +130,51 @@
       "number": "379",
       "id": "5d51"
     }
+  ],
+  "comments": [
+    [
+        {
+            "id": 1,
+            "URL": "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80",
+            "imgAlt": "teste",
+            "text": "The food is amazing! I loved the service and the ambiance. I will definitely come back!"
+        },
+        {
+            "id": 2,
+            "URL": "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80",
+            "imgAlt": "teste",
+            "text": "The food is delicious! Great atmosphere and friendly staff."
+        },
+        {
+            "id": 3,
+            "URL": "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80",
+            "imgAlt": "teste",
+            "text": "Highly recommended! The service exceeded my expectations."
+        },
+        {
+            "id": 4,
+            "URL": "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80",
+            "imgAlt": "teste",
+            "text": "Amazing experience! The food was excellent and the staff was attentive."
+        },
+        {
+            "id": 5,
+            "URL": "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80",
+            "imgAlt": "teste",
+            "text": "Fantastic restaurant! I can't wait to go back again."
+        },
+        {
+            "id": 6,
+            "URL": "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80",
+            "imgAlt": "teste",
+            "text": "Great food and atmosphere! Highly recommended for any occasion."
+        },
+        {
+            "id": 7,
+            "URL": "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80",
+            "imgAlt": "teste",
+            "text": "Excellent service and delicious food! Will definitely be returning."
+        }
+      ]      
   ]
 }
