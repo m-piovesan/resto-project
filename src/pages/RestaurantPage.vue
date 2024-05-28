@@ -29,7 +29,8 @@
     const fetchComments = async () => {
         try {
             const response = await axios.get(`http://localhost:3000/comments`);
-            comments.value = response.data;
+            comments.value = response.data[0];
+            console.log(comments.value);
         } catch (error) {
             console.error(error);
             toast.error('Error fetching comments!', { duration: 3000, position: 'top-right' });
@@ -51,7 +52,7 @@
     };
 
     const removeBlankSpaces = (string) => string.replace(/\s/g, '');
-    const selectedComments = computed(() => console.log(selectRandomComments(comments.value)));
+    const selectedComments = computed(() => selectRandomComments(comments.value));
 
     onMounted(() => {
         fetchRestaurant();
@@ -171,13 +172,16 @@
         <div class="col-8">
             <h2>Reviews:</h2>
 
+            <div v-if="!comments">Carregando comentários...</div>
+
             <ReviewComment
-                v-for="(comment) in comments"
+                v-else
+                v-for="(comment) in selectedComments"
                 :key="comment.id"
-                :URL="comment.URL"
+                :img-url="comment.imgUrl"
                 :img-alt="comment.imgAlt"
                 :text="comment.text"
             />
-        </div>
+        </div>  
     </div>
 </template>

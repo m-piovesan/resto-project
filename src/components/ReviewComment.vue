@@ -5,7 +5,7 @@
     import '../styles/ReviewComment.scss'
 
     const props = defineProps({
-        URL: String,
+        imgUrl: String,
         imgAlt: String,
         text: String,
     });
@@ -16,8 +16,8 @@
         <AvatarRoot class="AvatarRoot">
             <AvatarImage
                 class="AvatarImage"
-                :src= "props.URL"
-                :alt= "props.imgAlt"
+                :src="props.imgUrl"
+                :alt="props.imgAlt"
             />
             <AvatarFallback
                 class="AvatarFallback"
