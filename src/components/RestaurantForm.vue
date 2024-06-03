@@ -162,6 +162,8 @@
                     this.isEdit ? this.localRestaurantData.contact : this.contact
                 ];
 
+                console.log(fieldsToCheck);
+
                 return fieldsToCheck.every(field => field.trim() !== '');
             }
         },
@@ -225,7 +227,9 @@
                             street: '...',
                             neighborhood: '...',
                             city: '...',
-                            state: '...'
+                            state: '...',
+                            cep: '...',
+                            number: this.localRestaurantData.address.number
                         };
                     }
         

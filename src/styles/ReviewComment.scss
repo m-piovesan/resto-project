@@ -1,10 +1,15 @@
-.comment {
+.comment-block {
     display: flex;
     width: 100%;
-    gap: 10px;
+    gap: 15px;
     flex-direction: row;
-    text-align: justify;
     align-items: center;
+    text-align: justify;
+}
+
+.avatar-block {
+    display: flex;
+    align-items: flex-start;
 }
 
 .AvatarRoot {
@@ -14,9 +19,8 @@
     vertical-align: middle;
     overflow: hidden;
     user-select: none;
-    min-width: 50px;
-    max-width: 50px;
-    max-height: 50px;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
     background-color: var(--black-a3);
 }
@@ -39,3 +43,18 @@
     line-height: 1;
     font-weight: 500;
 }
+
+.TooltipContent {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    // Exemplo de pseudo-classe
+    &:hover {
+        background-color: #444;
+    }
+}
+  

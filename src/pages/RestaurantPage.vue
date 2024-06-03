@@ -30,7 +30,6 @@
         try {
             const response = await axios.get(`http://localhost:3000/comments`);
             comments.value = response.data[0];
-            console.log(comments.value);
         } catch (error) {
             console.error(error);
             toast.error('Error fetching comments!', { duration: 3000, position: 'top-right' });
@@ -169,7 +168,7 @@
             </ScrollAreaRoot>
         </div>
 
-        <div class="col-8">
+        <div class="col-8 comments-section">
             <h2>Reviews:</h2>
 
             <div v-if="!comments">Carregando comentários...</div>
@@ -181,6 +180,7 @@
                 :img-url="comment.imgUrl"
                 :img-alt="comment.imgAlt"
                 :text="comment.text"
+                :full-name="comment.fullName"
             />
         </div>  
     </div>

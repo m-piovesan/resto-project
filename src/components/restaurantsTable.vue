@@ -137,7 +137,6 @@
                 this.editedRestaurant.address.state = restaurant.state;
             },
             async handleSaveRestaurant(updatedRestaurantData) {
-                console.log(updatedRestaurantData);
                 try {
                     let result = await axios.put(`http://localhost:3000/restaurants/${this.editedRestaurant.id}`, {
                         name: updatedRestaurantData.name,
